@@ -1,0 +1,30 @@
+{%extends 'base.html'%}
+{%block body_block%}
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <table class="table">
+            <tr>
+                <th>book_name</th>
+                <th>author</th>
+                <th>amount</th>
+                <th>copies</th>
+            </tr>
+            {%for book in books%}
+            <tr>
+                <td>{{book.book_name}}</td>
+                <td>{{book.author}}</td>
+                <td> {{book.amount}}</td>
+                <td> {{book.copies}}</td>
+                <td>
+                    <a href="{%url 'bookchange' book.id%}" class="btn btn-warning">edit</a>
+                    <a href="{%url 'bookdetails' book.id%}" class="btn btn-primary">view</a>
+                    <a href="{%url 'bookdelete' book.id%}" class="btn btn-danger">Delete</a>
+                </td>
+                {%endfor%}
+            </tr>
+        </table>
+    </div>
+    <div class="col-2"></div>
+</div>
+{%endblock%}
