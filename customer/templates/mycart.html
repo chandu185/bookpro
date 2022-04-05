@@ -1,0 +1,27 @@
+{%extends 'cbase.html'%}
+{%block body_block%}
+{%for cart in carts%}
+<div class="row mt-2">
+    <div class="col-4">
+        {%if cart.product.image%}
+        <img src="{{cart.product.image.url}}" alt="" height="200px" width="300px">
+        {%endif%}
+    </div>
+    <div class="col-4">
+        <div class="card" style="width: 18rem;">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{cart.product.book_name}}</li>
+                <li class="list-group-item">{{cart.product.author}}</li>
+                <li class="list-group-item">{{cart.date}}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-4">
+        <a href="{%url 'removeitem' cart.id%}" class="btn btn-danger">Remove</a>
+        <a href="{%url 'ordercreate' cart.id cart.product.id%}" class="btn btn-primary">Buy Now</a>
+    </div>
+    <hr>
+</div>
+{%endfor%}
+
+{%endblock%}
