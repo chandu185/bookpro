@@ -2,9 +2,10 @@ import form as form
 from django.shortcuts import render,redirect
 from owner.forms import BookForm
 from django.urls import reverse_lazy
-from django.views.generic import View,ListView,CreateView,DetailView,UpdateView
+from django.views.generic import View,ListView,CreateView,DetailView,UpdateView,TemplateView
 from owner.models import Books
 from owner.models import Books
+from customer.models import Orders
 
 
 class AddBook(CreateView):
@@ -82,13 +83,14 @@ class BookChange(UpdateView):
     #         return redirect("allbooks")
     #
 
-# Create your views here.
+class DashBoardView(TemplateView):
+    template_name = "dashboard.html"
+    def get(self,request,*args,**kwargs):
+        new_orders=Orders.objects.filter(status="orderplaced")
+        return render(request,self.template_name,{"new_orders":new_orders})
 
-# add book
-# list all book
-
-# book detail
-
-# edit book
-
-# delete book
+class OrderDetailView(DetailView):
+    model = Orders
+    template_name = "order_detail.html"
+    context_object_name = "order"
+    pk_url_kwarg = "id"
